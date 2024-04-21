@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 05</title>
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 30px;
+            background: #d7b5f7;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        /*
+        Завдання:
+        Напишіть сценарії гри "Вгадай число". Суть гри: вгадати за меншу кількість спроб число, яке загадав сценарій.
+        Щоразу, коли гравець намагається вгадати число, сценарій виводить підказку – менше чи більше число було загадано сценарієм.
+        Сценарій загадує число лише один раз на початку гри, і це число не змінюється до завершення гри.
+        Після завершення гри виведіть користувачеві інформацію про те, з якої спроби вгадано значення та скільки було витрачено часу на це.
+
+        Для створення випадкового числа використовуйте такий код:
+        let randomValue = Math.floor(Math.random() * 101); // випадкове значення від 0 до 100 буде записано в змінну randomValue.
+        
+        Приклад гри:
+        Сценарій: я загадав випадкове значення від 0 до 100
+        Користувач: 50
+        Сценарій: я загадав значення більше за 50
+        Користувач: 75
+        Сценарій: я загадав значення менше за 75
+        Користувач: 62
+        Сценарій: я загадав значення менше за 62
+        Користувач: 56
+        Сценарій: Правильно! Загадане значення 56. Ви вгадали з 4-ї спроби за 10 сек.
+        */
+        let div = document.createElement("div");
+        div.textContent = "Вгадай число"
+        div.style.border = "3px solid red";
+        div.style.margin = "15px";
+        div.style.padding = "5px";
+
+        let btn = document.createElement("button");
+        btn.innerHTML = "Почати гру";
+        btn.style.border = "3px solid red";
+        btn.style.margin = "15px";
+        btn.style.padding = "5px";
+        btn.style.fontSize = "30px"
+
+        div.appendChild(btn)
+
+        document.body.appendChild(div);
+
+       btn.addEventListener("keydown", (e) => {if(e.key == "Enter") show();})
+
+        let randomValue = Math.floor(Math.random() * 101); 
+        let timerId = null;
+
+        let quantity = 0;
+        let tryIt = 0;
+
+        alert("Суть гри: вгадати за меншу кількість спроб число, яке загадав сценарій."); 
+
+        timerId = setInterval(() => { quantity++ }, 2000);
+
+        btn.addEventListener("click", function show(){
+            
+            let promptOutput = +prompt(`я загадав випадкове значення від 0 до 101`, 0);
+            tryIt++;
+          
+            if(promptOutput > randomValue ){
+             alert(" я загадав значення менше");
+            }
+            else if(promptOutput < randomValue){
+             alert(" я загадав значення більше");
+            }
+            else if (promptOutput == randomValue){
+             clearInterval(timerId);
+             alert(`Правильно! Загадане значення ${randomValue}. Ви вгадали з ${tryIt} спроб за ${quantity} сек`);
+             promptOutput.value = ""; 
+            };
+        })
+    </script>
+</body>
+
+</html>
